@@ -13,5 +13,5 @@ export default defineConfig({
       assets: "/src/assets"
     }
   },
-  base: 'react-vite-template',
+  base: 'exonn-tabs',
 });
