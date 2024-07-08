@@ -38,3 +38,16 @@ button {
 .tab-style {
   background-color: #000000;
 }
+
+.tab-list {
+  /* overflow: scroll; */
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  text-align: center;
+}
+
+.tab-item {
+  padding: 17px 20px;
+
+}
