@@ -1,7 +1,11 @@
-import './main.css';
+// import './main.css';
+// import style from '../src/styles/main.css'
+// console.log("🚀 ~ style:", style)
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Popover from '@mui/material/Popover';
 import { useState } from 'react';
 import { tabsData } from './mockData/tabsData';
 import CustomTabPanel from './components/CustomTabPanel';
@@ -15,19 +19,44 @@ function a11yProps(index) {
   };
 }
 export default function App() {
+  const [tabsList, setTabsList] = useState(tabsData);
   const [tabIndex, setTabIndex] = useState(0);
+  const [anchorEl, setAnchorEl] = useState(null);
 
   const handleChange = (event, newValue) => {
     setTabIndex(newValue);
   };
 
+  const handleOpenMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleCloseMenu = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
+
   return (
-    <div className="container">
-      <Box sx={{ width: '100%' }}>
-        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-          <Tabs value={tabIndex} onChange={handleChange} aria-label="tablist">
+    <div className="container"
+      // style={{ overflowX: 'auto' }}
+    >
+      <Box sx={{
+        width: '100%',
+        // overflow: 'scroll'
+      }}>
+        <Box
+          sx={{ borderBottom: 1, borderColor: 'divider' }}
+          style={{ position: 'relative', display: 'flex', gap: '10px' }}
+        >
+          <Tabs
+            value={tabIndex}
+            onChange={handleChange}
+            aria-label="tablist"
+            // variant="scrollable"
+            // scrollButtons="auto"
+          >
             <Tab
-              style={{ height: '9px' }}
               icon={
                 <SvgIcon
                   style={{ width: '16px', height: '16px', marginRight: 10 }}
@@ -232,6 +261,31 @@ export default function App() {
               {...a11yProps(16)}
             />
           </Tabs>
+          <Button
+            onClick={handleOpenMenu}
+            // sx={{ position: 'absolute', top: '0', right: '0', zIndex: '1' }}
+          >
+            <SvgIcon style={{ width: '16px', height: '16px', margin: 0 }}>
+              <use href={sprite + '#vector'}></use>
+            </SvgIcon>
+          </Button>
+          <Popover
+            open={open}
+            anchorEl={anchorEl}
+            onClose={handleCloseMenu}
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'right',
+            }}
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+          >
+            <CustomTabPanel value={tabIndex} index={tabIndex}>
+              tab1
+            </CustomTabPanel>
+          </Popover>
         </Box>
         {tabsData.map((data) => (
           <CustomTabPanel key={data.id} value={tabIndex} index={data.id}>
