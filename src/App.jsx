@@ -8,21 +8,28 @@ import { SvgIcon } from '@mui/material';
 import { Reorder } from 'framer-motion';
 
 const TABS_STORAGE_KEY = 'tabs';
+const PINNED_TABS_KEY = 'pinned_tabs';
 
 const getStoragedTabs = () => {
   const savedTabs = localStorage.getItem(TABS_STORAGE_KEY);
   return savedTabs ? JSON.parse(savedTabs) : tabsData;
 };
 
+const getPittedTabs = () => {
+  const pinnedTabs = localStorage.getItem(PINNED_TABS_KEY);
+  return pinnedTabs ? JSON.parse(pinnedTabs) : [];
+};
+
 export default function App() {
   const [tabsList, setTabsList] = useState(getStoragedTabs);
+  console.log('🚀 ~ App ~ tabsList:', tabsList);
   const [hiddenTabs, setHiddenTabs] = useState([]);
-  const [pinnedTabs, setPinnedTabs] = useState([]);
+  const [pinnedTabs, setPinnedTabs] = useState(getPittedTabs);
+  console.log('🚀 ~ App ~ pinnedTabs:', pinnedTabs);
   const [anchorEl, setAnchorEl] = useState(null);
   const [pinnedAncorEL, setPinnedAncorEL] = useState(null);
   const [tabsContainerWidth, setTabsContainerWidth] = useState(0);
   const [tabIndex, setTabIndex] = useState(0);
-  console.log('🚀 ~ App ~ tabIndex:', tabIndex);
   const tabsContainerRef = useRef(null);
 
   useEffect(() => {
@@ -86,10 +93,15 @@ export default function App() {
   };
 
   const pinnTabHandler = (tab) => {
-    console.log('🚀 ~ pinnTabHandler ~ tab:', tab);
-    // setPinnedTabs(prevTabs => [...prevTabs, tab])
-    // setTabsList(prev => prev.filrer(t=> t.id !== tab.id))
+    setPinnedTabs((prevTabs) => [...prevTabs, tab]);
+    setTabsList((prev) => prev.filter((t) => t.id !== tab.id));
   };
+
+  const deletePinnedTabHandler = (tab) => {
+    setPinnedTabs((prev) => prev.filter((t) => t.id !== tab.id));
+    
+    setTabsList(prev => [tab, ...prev])
+  }
 
   const openUnvisiblePinns = Boolean(anchorEl);
   const openPinnedTabs = Boolean(pinnedAncorEL);
@@ -117,9 +129,19 @@ export default function App() {
             horizontal: 'right',
           }}
         >
-          <CustomTabPanel value={tabIndex} index={tabIndex}>
-            pinned tab1
-          </CustomTabPanel>
+          {pinnedTabs.map((item) => (
+            <CustomTabPanel value={tabIndex} index={tabIndex}>
+              <div className="pinned-tab-wrapp">
+                <p>{item.label}</p>
+                <p
+                  className="delete-pinn"
+                  onClick={() => deletePinnedTabHandler(item)}
+                >
+                  X
+                </p>
+              </div>
+            </CustomTabPanel>
+          ))}
         </Popover>
         <Reorder.Group
           id="tabs"
@@ -144,7 +166,7 @@ export default function App() {
               id={item.id}
             >
               <p>{item.label}</p>
-              <span class="tooltip" onClick={() => pinnTabHandler(item)}>
+              <span className="tooltip" onClick={() => pinnTabHandler(item)}>
                 <svg width="16" height="16">
                   <use xlinkHref={sprite + '#pinn'}></use>
                 </svg>
