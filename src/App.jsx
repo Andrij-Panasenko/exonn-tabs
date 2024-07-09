@@ -28,7 +28,6 @@ export default function App() {
   const [pinnedAncorEL, setPinnedAncorEL] = useState(null);
   const [tabsContainerWidth, setTabsContainerWidth] = useState(0);
   const [tabIndex, setTabIndex] = useState(0);
-  console.log('🚀 ~ App ~ tabIndex:', tabIndex);
   const tabsContainerRef = useRef(null);
 
   useEffect(() => {
