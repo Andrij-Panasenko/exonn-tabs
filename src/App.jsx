@@ -1,27 +1,30 @@
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Popover from '@mui/material/Popover';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { tabsData } from './mockData/tabsData';
 import CustomTabPanel from './components/CustomTabPanel';
 import sprite from './assets/sprite.svg';
 import { SvgIcon } from '@mui/material';
 import { Reorder } from 'framer-motion';
-function a11yProps(index) {
-  return {
-    id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
-  };
-}
+
+const TABS_STORAGE_KEY = 'tabs';
+
+const getStoragedTabs = () => {
+  const savedTabs = localStorage.getItem(TABS_STORAGE_KEY);
+  return savedTabs ? JSON.parse(savedTabs) : tabsData;
+};
+
 export default function App() {
-  const [tabsList, setTabsList] = useState(tabsData);
+  const [tabsList, setTabsList] = useState(getStoragedTabs);
   const [tabIndex, setTabIndex] = useState(0);
   const [anchorEl, setAnchorEl] = useState(null);
 
-  const handleChange = (event, newValue) => {
-    setTabIndex(newValue);
+  useEffect(() => {
+    window.localStorage.setItem(TABS_STORAGE_KEY, JSON.stringify(tabsList));
+  }, [tabsList]);
+
+  const handleReorder = (newTablist) => {
+    setTabsList(newTablist);
   };
 
   const handleOpenMenu = (event) => {
@@ -40,7 +43,7 @@ export default function App() {
         <Reorder.Group
           axis="x"
           values={tabsList}
-          onReorder={setTabsList}
+          onReorder={handleReorder}
           className="tab-list"
         >
           {tabsList.map((item) => (
@@ -63,7 +66,9 @@ export default function App() {
           onClick={handleOpenMenu}
           sx={{ position: 'absolute', top: '0', right: '0', zIndex: '1' }}
         >
-          Додаткові
+          <svg width='16' height='16'>
+            <use xlinkHref={ sprite + '#vector' }></use>
+          </svg>
         </Button>
         <Popover
           open={open}
