@@ -137,6 +137,7 @@ export default function App() {
             horizontal: 'right',
           }}
         >
+          {pinnedTabs.length === 0 && <CustomTabPanel>No pinns</CustomTabPanel>}
           {pinnedTabs.map((item) => (
             <CustomTabPanel key={item.id} value={tabIndex} index={tabIndex}>
               <div className="pinned-tab-wrapp">
