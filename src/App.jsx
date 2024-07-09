@@ -22,10 +22,8 @@ const getPittedTabs = () => {
 
 export default function App() {
   const [tabsList, setTabsList] = useState(getStoragedTabs);
-  console.log('🚀 ~ App ~ tabsList:', tabsList);
   const [hiddenTabs, setHiddenTabs] = useState([]);
   const [pinnedTabs, setPinnedTabs] = useState(getPittedTabs);
-  console.log('🚀 ~ App ~ pinnedTabs:', pinnedTabs);
   const [anchorEl, setAnchorEl] = useState(null);
   const [pinnedAncorEL, setPinnedAncorEL] = useState(null);
   const [tabsContainerWidth, setTabsContainerWidth] = useState(0);
@@ -49,24 +47,24 @@ export default function App() {
   }, [tabsContainerWidth]);
 
   //defining hidden tabs
-  // useEffect(() => {
-  //   if (!tabsContainerWidth && tabsContainerRef) return;
+  useEffect(() => {
+    if (!tabsContainerWidth && tabsContainerRef) return;
 
-  //   const tabsContainer = tabsContainerRef.current;
-  //   const containerWidth = tabsContainerWidth;
+    const tabsContainer = tabsContainerRef.current;
+    const containerWidth = tabsContainerWidth;
 
-  //   const tabs = tabsContainer.querySelectorAll('.tab-item');
+    const tabs = tabsContainer.querySelectorAll('.tab-item');
 
-  //   const hiddenTabsArray = [];
+    const hiddenTabsArray = [];
 
-  //   tabs.forEach((tab) => {
-  //     if (tab.offsetLeft + tab.offsetWidth > containerWidth) {
-  //       hiddenTabsArray.push(tab.textContent);
-  //     }
-  //   });
+    tabs.forEach((tab) => {
+      if (tab.offsetLeft + tab.offsetWidth > containerWidth) {
+        hiddenTabsArray.push(tab.textContent);
+      }
+    });
 
-  //   setHiddenTabs(hiddenTabsArray);
-  // }, [tabsContainerWidth]);
+    setHiddenTabs(hiddenTabsArray);
+  }, [tabsContainerWidth]);
 
   const handleReorder = (newTablist) => {
     setTabsList(newTablist);
@@ -205,12 +203,11 @@ export default function App() {
             horizontal: 'right',
           }}
         >
-          {/* {hiddenTabs.map((tab) => (
-            <div key={tab}>{tab}</div>
-          ))} */}
-          <CustomTabPanel value={tabIndex} index={tabIndex}>
-            tab1
-          </CustomTabPanel>
+          {hiddenTabs.map((tab, idx) => (
+            <CustomTabPanel key={idx} value={tabIndex} index={tabIndex}>
+              {tab}
+            </CustomTabPanel>
+          ))}
         </Popover>
         {tabsData.map((data) => (
           <CustomTabPanel key={data.id} value={tabIndex} index={data.id}>
