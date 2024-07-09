@@ -28,6 +28,7 @@ export default function App() {
   const [pinnedAncorEL, setPinnedAncorEL] = useState(null);
   const [tabsContainerWidth, setTabsContainerWidth] = useState(0);
   const [tabIndex, setTabIndex] = useState(0);
+  console.log('🚀 ~ App ~ tabIndex:', tabIndex);
   const tabsContainerRef = useRef(null);
 
   useEffect(() => {
@@ -111,6 +112,10 @@ export default function App() {
     setTabsList((prev) => [tab, ...prev]);
   };
 
+  const handleTabClick = (tabIndex) => {
+    setTabIndex(tabIndex);
+  };
+
   const openUnvisiblePinns = Boolean(anchorEl);
   const openPinnedTabs = Boolean(pinnedAncorEL);
   return (
@@ -163,6 +168,7 @@ export default function App() {
         >
           {tabsList.map((item) => (
             <Reorder.Item
+              onClick={() => handleTabClick(item.id)}
               data-tab-id={item.id}
               whileDrag={{
                 backgroundColor: '#7F858D',
