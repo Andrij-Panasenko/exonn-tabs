@@ -48,7 +48,7 @@ export default function App() {
 
   //defining hidden tabs
   useEffect(() => {
-    if (!tabsContainerWidth && tabsContainerRef) return;
+    if (!tabsContainerWidth || !tabsContainerRef.current) return;
 
     const tabsContainer = tabsContainerRef.current;
     const containerWidth = tabsContainerWidth;
@@ -58,13 +58,15 @@ export default function App() {
     const hiddenTabsArray = [];
 
     tabs.forEach((tab) => {
+      const tabId = tab.getAttribute('data-tab-id'); // Getting tab id
+      const tabObject = tabsList.find((t) => t.id === tabId); //Find specific tab in tabList array
       if (tab.offsetLeft + tab.offsetWidth > containerWidth) {
-        hiddenTabsArray.push(tab.textContent);
+        hiddenTabsArray.push(tabObject);
       }
     });
 
     setHiddenTabs(hiddenTabsArray);
-  }, [tabsContainerWidth]);
+  }, [tabsContainerWidth, tabsList]);
 
   const handleReorder = (newTablist) => {
     setTabsList(newTablist);
@@ -161,6 +163,7 @@ export default function App() {
         >
           {tabsList.map((item) => (
             <Reorder.Item
+              data-tab-id={item.id}
               whileDrag={{
                 backgroundColor: '#7F858D',
                 color: '#ffffff',
@@ -203,9 +206,9 @@ export default function App() {
             horizontal: 'right',
           }}
         >
-          {hiddenTabs.map((tab, idx) => (
-            <CustomTabPanel key={idx} value={tabIndex} index={tabIndex}>
-              {tab}
+          {hiddenTabs.map((tab) => (
+            <CustomTabPanel key={tab.id} value={tabIndex} index={tabIndex}>
+              {tab.label}
             </CustomTabPanel>
           ))}
         </Popover>
