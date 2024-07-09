@@ -144,7 +144,12 @@ export default function App() {
         >
           {pinnedTabs.length === 0 && <CustomTabPanel>No pinns</CustomTabPanel>}
           {pinnedTabs.map((item) => (
-            <CustomTabPanel key={item.id} value={tabIndex} index={tabIndex}>
+            <CustomTabPanel
+              onClick={() => handleTabClick(item.id)}
+              key={item.id}
+              value={tabIndex}
+              index={tabIndex}
+            >
               <div className="pinned-tab-wrapp">
                 <p>{item.label}</p>
                 <p
@@ -213,7 +218,12 @@ export default function App() {
           }}
         >
           {hiddenTabs.map((tab) => (
-            <CustomTabPanel key={tab.id} value={tabIndex} index={tabIndex}>
+            <CustomTabPanel
+              onClick={() => handleTabClick(tab.id)}
+              key={tab.id}
+              value={tabIndex}
+              index={tabIndex}
+            >
               {tab.label}
             </CustomTabPanel>
           ))}
