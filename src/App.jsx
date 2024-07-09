@@ -62,7 +62,7 @@ export default function App() {
       console.log('tab.offsetWidth', tab.offsetWidth);
       const tabId = tab.getAttribute('data-tab-id'); // Getting tab id
       const tabObject = tabsList.find((t) => t.id === tabId); //Find specific tab in tabList array
-      if (tab.offsetLeft - 100 + tab.offsetWidth > containerWidth) {
+      if (tab.offsetLeft - 150 + tab.offsetWidth > containerWidth) {
         hiddenTabsArray.push(tabObject);
       }
     });
