@@ -79,53 +79,46 @@ export default function App() {
   return (
     <>
       <div className="container">
-        <div className="tabs-wrapper">
-          <div>
-            <Reorder.Group
-              id="tabs"
-              axis="x"
-              values={tabsList}
-              onChange={handleChange}
-              onReorder={handleReorder}
-              className="tab-list"
-              ref={tabsContainerRef}
-              style={{ position: 'relative' }}
-            >
-              {tabsList.map((item) => (
-                <Reorder.Item
-                  whileDrag={{
-                    backgroundColor: '#7F858D',
-                    color: '#ffffff',
+        <Reorder.Group
+          id="tabs"
+          axis="x"
+          values={tabsList}
+          onChange={handleChange}
+          onReorder={handleReorder}
+          className="tab-list"
+          ref={tabsContainerRef}
+        >
+          {tabsList.map((item) => (
+            <Reorder.Item
+              whileDrag={{
+                backgroundColor: '#7F858D',
+                color: '#ffffff',
 
-                    boxShadow: 'rgba(0,0,0,0.12) 0px 1px 3px ',
-                  }}
-                  value={item}
-                  className="tab-item"
-                  key={item.id}
-                  id={item.id}
-                >
-                  <p>{item.label}</p>
-                  <span class="tooltip">
-                    <svg width="16" height="16">
-                      <use xlinkHref={sprite + '#pinn'}></use>
-                    </svg>
-                    Pinn tab
-                  </span>
-                </Reorder.Item>
-              ))}
-            </Reorder.Group>
-          </div>
-          <div>
-            <Button
-              onClick={handleOpenMenu}
-              sx={{ position: 'absolute', top: '90px', right: '0', zIndex: '1' }}
+                boxShadow: 'rgba(0,0,0,0.12) 0px 1px 3px ',
+              }}
+              value={item}
+              className="tab-item"
+              key={item.id}
+              id={item.id}
             >
-              <svg width="16" height="16">
-                <use xlinkHref={sprite + '#vector'}></use>
-              </svg>
-            </Button>
-          </div>
-        </div>
+              <p>{item.label}</p>
+              <span class="tooltip">
+                <svg width="16" height="16">
+                  <use xlinkHref={sprite + '#pinn'}></use>
+                </svg>
+                Pinn tab
+              </span>
+            </Reorder.Item>
+          ))}
+        </Reorder.Group>
+        <Button
+          onClick={handleOpenMenu}
+          sx={{ position: 'absolute', top: '90px', right: '0', zIndex: '1' }}
+        >
+          <svg width="16" height="16">
+            <use xlinkHref={sprite + '#vector'}></use>
+          </svg>
+        </Button>
         <Popover
           open={open}
           anchorEl={anchorEl}
