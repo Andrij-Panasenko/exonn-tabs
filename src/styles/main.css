@@ -41,7 +41,7 @@ button {
 }
 
 .tab-list {
-  overflow-x: scroll;
+  overflow-x: hidden;
   overflow-y: hidden;
   height: 100px;
   
@@ -49,22 +49,6 @@ button {
   gap: 10px;
   align-items: center;
   text-align: center;
-}
-
-.tab-list::-webkit-scrollbar {
-  width: 8px;
-}
-
-.tab-list::-webkit-scrollbar-track {
-  border-radius: 12px;
-  border: 1px solid rgba(238, 174, 13, 0.1);
-}
-
-.tab-list::-webkit-scrollbar-thumb {
-  border-radius: 12px;
-
-  background: rgba(243, 171, 3, 0.1);
-  height: 100px;
 }
 
 .tab-item {

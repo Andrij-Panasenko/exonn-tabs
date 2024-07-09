@@ -75,6 +75,10 @@ export default function App() {
     setAnchorEl(null);
   };
 
+  const pinnTabHandler = () => {
+    
+  }
+
   const open = Boolean(anchorEl);
   return (
     <>
@@ -100,6 +104,7 @@ export default function App() {
               className="tab-item"
               key={item.id}
               id={item.id}
+              onClick={pinnTabHandler}
             >
               <p>{item.label}</p>
               <span class="tooltip">
