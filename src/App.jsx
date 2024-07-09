@@ -16,7 +16,9 @@ const getStoragedTabs = () => {
 
 export default function App() {
   const [tabsList, setTabsList] = useState(getStoragedTabs);
+  console.log("🚀 ~ App ~ tabsList:", tabsList)
   const [hiddenTabs, setHiddenTabs] = useState([]);
+  console.log("🚀 ~ App ~ hiddenTabs:", hiddenTabs)
   const [anchorEl, setAnchorEl] = useState(null);
   const [tabsContainerWidth, setTabsContainerWidth] = useState(0);
   const [tabIndex, setTabIndex] = useState(0);
@@ -102,6 +104,12 @@ export default function App() {
               id={item.id}
             >
               {item.label}
+              <span class="tooltip">
+                <svg width="16" height="16">
+                  <use xlinkHref={sprite + '#pinn'}></use>
+                </svg>
+                Pinn tab
+              </span>
             </Reorder.Item>
           ))}
         </Reorder.Group>
@@ -127,11 +135,13 @@ export default function App() {
           }}
         >
           {hiddenTabs.map((tab) => (
-            <div key={tab}>{tab}</div>
+            <CustomTabPanel value={tabIndex} index={tabIndex}>
+              {tab}
+            </CustomTabPanel>
           ))}
-          <CustomTabPanel value={tabIndex} index={tabIndex}>
+          {/* <CustomTabPanel value={tabIndex} index={tabIndex}>
             tab1
-          </CustomTabPanel>
+          </CustomTabPanel> */}
         </Popover>
         {tabsData.map((data) => (
           <CustomTabPanel key={data.id} value={tabIndex} index={data.id}>
