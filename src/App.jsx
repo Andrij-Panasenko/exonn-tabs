@@ -93,15 +93,23 @@ export default function App() {
   };
 
   const pinnTabHandler = (tab) => {
-    setPinnedTabs((prevTabs) => [...prevTabs, tab]);
+    setPinnedTabs((prevTabs) => {
+      const updatedPinns = [...prevTabs, tab];
+      localStorage.setItem(PINNED_TABS_KEY, JSON.stringify(updatedPinns));
+      return updatedPinns;
+    });
     setTabsList((prev) => prev.filter((t) => t.id !== tab.id));
   };
 
   const deletePinnedTabHandler = (tab) => {
-    setPinnedTabs((prev) => prev.filter((t) => t.id !== tab.id));
-    
-    setTabsList(prev => [tab, ...prev])
-  }
+    setPinnedTabs((prev) => {
+      const updatedPinns = prev.filter((t) => t.id !== tab.id);
+      localStorage.setItem(PINNED_TABS_KEY, JSON.stringify(updatedPinns));
+      return updatedPinns;
+    });
+
+    setTabsList((prev) => [tab, ...prev]);
+  };
 
   const openUnvisiblePinns = Boolean(anchorEl);
   const openPinnedTabs = Boolean(pinnedAncorEL);
@@ -130,7 +138,7 @@ export default function App() {
           }}
         >
           {pinnedTabs.map((item) => (
-            <CustomTabPanel value={tabIndex} index={tabIndex}>
+            <CustomTabPanel key={item.id} value={tabIndex} index={tabIndex}>
               <div className="pinned-tab-wrapp">
                 <p>{item.label}</p>
                 <p
