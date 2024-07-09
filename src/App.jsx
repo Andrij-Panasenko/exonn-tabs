@@ -17,7 +17,9 @@ const getStoragedTabs = () => {
 export default function App() {
   const [tabsList, setTabsList] = useState(getStoragedTabs);
   const [hiddenTabs, setHiddenTabs] = useState([]);
+  const [pinnedTabs, setPinnedTabs] = useState([]);
   const [anchorEl, setAnchorEl] = useState(null);
+  const [pinnedAncorEL, setPinnedAncorEL] = useState(null);
   const [tabsContainerWidth, setTabsContainerWidth] = useState(0);
   const [tabIndex, setTabIndex] = useState(0);
   console.log('🚀 ~ App ~ tabIndex:', tabIndex);
@@ -40,24 +42,24 @@ export default function App() {
   }, [tabsContainerWidth]);
 
   //defining hidden tabs
-  useEffect(() => {
-    if (!tabsContainerWidth && tabsContainerRef) return;
+  // useEffect(() => {
+  //   if (!tabsContainerWidth && tabsContainerRef) return;
 
-    const tabsContainer = tabsContainerRef.current;
-    const containerWidth = tabsContainerWidth;
+  //   const tabsContainer = tabsContainerRef.current;
+  //   const containerWidth = tabsContainerWidth;
 
-    const tabs = tabsContainer.querySelectorAll('.tab-item');
+  //   const tabs = tabsContainer.querySelectorAll('.tab-item');
 
-    const hiddenTabsArray = [];
+  //   const hiddenTabsArray = [];
 
-    tabs.forEach((tab) => {
-      if (tab.offsetLeft + tab.offsetWidth > containerWidth) {
-        hiddenTabsArray.push(tab.textContent);
-      }
-    });
+  //   tabs.forEach((tab) => {
+  //     if (tab.offsetLeft + tab.offsetWidth > containerWidth) {
+  //       hiddenTabsArray.push(tab.textContent);
+  //     }
+  //   });
 
-    setHiddenTabs(hiddenTabsArray);
-  }, [tabsContainerWidth]);
+  //   setHiddenTabs(hiddenTabsArray);
+  // }, [tabsContainerWidth]);
 
   const handleReorder = (newTablist) => {
     setTabsList(newTablist);
@@ -75,14 +77,50 @@ export default function App() {
     setAnchorEl(null);
   };
 
-  const pinnTabHandler = () => {
-    
-  }
+  const handleOpenPinnedTabs = (event) => {
+    setPinnedAncorEL(event.currentTarget);
+  };
 
-  const open = Boolean(anchorEl);
+  const handleClosePinnedTabs = () => {
+    setPinnedAncorEL(null);
+  };
+
+  const pinnTabHandler = (tab) => {
+    console.log('🚀 ~ pinnTabHandler ~ tab:', tab);
+    // setPinnedTabs(prevTabs => [...prevTabs, tab])
+    // setTabsList(prev => prev.filrer(t=> t.id !== tab.id))
+  };
+
+  const openUnvisiblePinns = Boolean(anchorEl);
+  const openPinnedTabs = Boolean(pinnedAncorEL);
   return (
     <>
       <div className="container">
+        <Button
+          onClick={handleOpenPinnedTabs}
+          sx={{ position: 'absolute', top: '100px', left: '0', zIndex: '1' }}
+        >
+          <svg width="16" height="16">
+            <use xlinkHref={sprite + '#storage'}></use>
+          </svg>
+        </Button>
+        <Popover
+          open={openPinnedTabs}
+          anchorEl={pinnedAncorEL}
+          onClose={handleClosePinnedTabs}
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'right',
+          }}
+          transformOrigin={{
+            vertical: 'top',
+            horizontal: 'right',
+          }}
+        >
+          <CustomTabPanel value={tabIndex} index={tabIndex}>
+            pinned tab1
+          </CustomTabPanel>
+        </Popover>
         <Reorder.Group
           id="tabs"
           axis="x"
@@ -104,10 +142,9 @@ export default function App() {
               className="tab-item"
               key={item.id}
               id={item.id}
-              onClick={pinnTabHandler}
             >
               <p>{item.label}</p>
-              <span class="tooltip">
+              <span class="tooltip" onClick={() => pinnTabHandler(item)}>
                 <svg width="16" height="16">
                   <use xlinkHref={sprite + '#pinn'}></use>
                 </svg>
@@ -125,7 +162,7 @@ export default function App() {
           </svg>
         </Button>
         <Popover
-          open={open}
+          open={openUnvisiblePinns}
           anchorEl={anchorEl}
           onClose={handleCloseMenu}
           anchorOrigin={{
@@ -137,9 +174,9 @@ export default function App() {
             horizontal: 'right',
           }}
         >
-          {hiddenTabs.map((tab) => (
+          {/* {hiddenTabs.map((tab) => (
             <div key={tab}>{tab}</div>
-          ))}
+          ))} */}
           <CustomTabPanel value={tabIndex} index={tabIndex}>
             tab1
           </CustomTabPanel>
