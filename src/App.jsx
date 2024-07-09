@@ -112,10 +112,6 @@ export default function App() {
     setTabsList((prev) => [tab, ...prev]);
   };
 
-  const handleTabClick = (tabIndex) => {
-    setTabIndex(tabIndex);
-  };
-
   const openUnvisiblePinns = Boolean(anchorEl);
   const openPinnedTabs = Boolean(pinnedAncorEL);
   return (
@@ -145,7 +141,7 @@ export default function App() {
           {pinnedTabs.length === 0 && <CustomTabPanel>No pinns</CustomTabPanel>}
           {pinnedTabs.map((item) => (
             <CustomTabPanel
-              onClick={() => handleTabClick(item.id)}
+              onClick={() => setTabIndex(item.id)}
               key={item.id}
               value={tabIndex}
               index={tabIndex}
@@ -173,7 +169,7 @@ export default function App() {
         >
           {tabsList.map((item) => (
             <Reorder.Item
-              onClick={() => handleTabClick(item.id)}
+              onClick={() => setTabIndex(item.id)}
               data-tab-id={item.id}
               whileDrag={{
                 backgroundColor: '#7F858D',
@@ -219,7 +215,7 @@ export default function App() {
         >
           {hiddenTabs.map((tab) => (
             <CustomTabPanel
-              onClick={() => handleTabClick(tab.id)}
+              onClick={() => setTabIndex(tab.id)}
               key={tab.id}
               value={tabIndex}
               index={tabIndex}
