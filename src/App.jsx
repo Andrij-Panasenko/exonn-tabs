@@ -16,9 +16,7 @@ const getStoragedTabs = () => {
 
 export default function App() {
   const [tabsList, setTabsList] = useState(getStoragedTabs);
-  console.log("🚀 ~ App ~ tabsList:", tabsList)
   const [hiddenTabs, setHiddenTabs] = useState([]);
-  console.log("🚀 ~ App ~ hiddenTabs:", hiddenTabs)
   const [anchorEl, setAnchorEl] = useState(null);
   const [tabsContainerWidth, setTabsContainerWidth] = useState(0);
   const [tabIndex, setTabIndex] = useState(0);
@@ -81,46 +79,53 @@ export default function App() {
   return (
     <>
       <div className="container">
-        <Reorder.Group
-          id="tabs"
-          axis="x"
-          values={tabsList}
-          onChange={handleChange}
-          onReorder={handleReorder}
-          className="tab-list"
-          ref={tabsContainerRef}
-        >
-          {tabsList.map((item) => (
-            <Reorder.Item
-              whileDrag={{
-                backgroundColor: '#7F858D',
-                color: '#ffffff',
-
-                boxShadow: 'rgba(0,0,0,0.12) 0px 1px 3px ',
-              }}
-              value={item}
-              className="tab-item"
-              key={item.id}
-              id={item.id}
+        <div className="tabs-wrapper">
+          <div>
+            <Reorder.Group
+              id="tabs"
+              axis="x"
+              values={tabsList}
+              onChange={handleChange}
+              onReorder={handleReorder}
+              className="tab-list"
+              ref={tabsContainerRef}
+              style={{ position: 'relative' }}
             >
-              {item.label}
-              <span class="tooltip">
-                <svg width="16" height="16">
-                  <use xlinkHref={sprite + '#pinn'}></use>
-                </svg>
-                Pinn tab
-              </span>
-            </Reorder.Item>
-          ))}
-        </Reorder.Group>
-        <Button
-          onClick={handleOpenMenu}
-          sx={{ position: 'absolute', top: '0', right: '0', zIndex: '1' }}
-        >
-          <svg width="16" height="16">
-            <use xlinkHref={sprite + '#vector'}></use>
-          </svg>
-        </Button>
+              {tabsList.map((item) => (
+                <Reorder.Item
+                  whileDrag={{
+                    backgroundColor: '#7F858D',
+                    color: '#ffffff',
+
+                    boxShadow: 'rgba(0,0,0,0.12) 0px 1px 3px ',
+                  }}
+                  value={item}
+                  className="tab-item"
+                  key={item.id}
+                  id={item.id}
+                >
+                  <p>{item.label}</p>
+                  <span class="tooltip">
+                    <svg width="16" height="16">
+                      <use xlinkHref={sprite + '#pinn'}></use>
+                    </svg>
+                    Pinn tab
+                  </span>
+                </Reorder.Item>
+              ))}
+            </Reorder.Group>
+          </div>
+          <div>
+            <Button
+              onClick={handleOpenMenu}
+              sx={{ position: 'absolute', top: '90px', right: '0', zIndex: '1' }}
+            >
+              <svg width="16" height="16">
+                <use xlinkHref={sprite + '#vector'}></use>
+              </svg>
+            </Button>
+          </div>
+        </div>
         <Popover
           open={open}
           anchorEl={anchorEl}
@@ -135,13 +140,11 @@ export default function App() {
           }}
         >
           {hiddenTabs.map((tab) => (
-            <CustomTabPanel value={tabIndex} index={tabIndex}>
-              {tab}
-            </CustomTabPanel>
+            <div key={tab}>{tab}</div>
           ))}
-          {/* <CustomTabPanel value={tabIndex} index={tabIndex}>
+          <CustomTabPanel value={tabIndex} index={tabIndex}>
             tab1
-          </CustomTabPanel> */}
+          </CustomTabPanel>
         </Popover>
         {tabsData.map((data) => (
           <CustomTabPanel key={data.id} value={tabIndex} index={data.id}>
