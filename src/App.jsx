@@ -136,7 +136,12 @@ export default function App() {
         />
         <Button
           onClick={handleOpenMenu}
-          sx={{rotate: 180, position: 'absolute', top: '75px', right: '0', zIndex: '1' }}
+          sx={{
+            position: 'absolute',
+            top: '75px',
+            right: '0',
+            zIndex: '1',
+          }}
         >
           <svg width="20" height="20">
             <use xlinkHref={sprite + '#arrow-down'}></use>
