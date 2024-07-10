@@ -13,8 +13,10 @@ export default function CustomTabPanel(props) {
       {...other}
     >
       {value === index && (
-        <Box className="tab-content-container">
-          <div className='tab-content'>{children}</div>
+        <Box>
+          <div className="tab-content-container">
+            <div className="tab-content">{children}</div>
+          </div>
         </Box>
       )}
     </div>

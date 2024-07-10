@@ -27,9 +27,11 @@ export default function PopoverPinnedTabs({
           horizontal: 'right',
         }}
       >
-        {pinnedTabs.length === 0 && <CustomTabPanel>No pinns</CustomTabPanel>}
+        {pinnedTabs.length === 0 && (
+          <div className="pinned-tab-wrapp">No pinns</div>
+        )}
         {pinnedTabs.map((item) => (
-          <CustomTabPanel
+          <div
             onClick={() => setTabIndex(item.id)}
             key={item.id}
             value={tabIndex}
@@ -44,7 +46,7 @@ export default function PopoverPinnedTabs({
                 X
               </p>
             </div>
-          </CustomTabPanel>
+          </div>
         ))}
       </Popover>
     </>

@@ -1,0 +1,12 @@
+.hidden-tab-wrapp {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.hidden-tab {
+  border-radius: 6px;
+  margin-bottom: 5px;
+  padding: 20px;
+  background-color: #F1F5F8;
+}

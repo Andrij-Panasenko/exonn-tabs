@@ -27,14 +27,14 @@ export default function PopoverHiddenTabs({
         }}
       >
         {hiddenTabs.map((tab) => (
-          <CustomTabPanel
+          <div
             onClick={() => setTabIndex(tab.id)}
             key={tab.id}
             value={tabIndex}
             index={tabIndex}
           >
-            {tab.label}
-          </CustomTabPanel>
+            <p className="hidden-tab"> {tab.label}</p>
+          </div>
         ))}
       </Popover>
       {tabsData.map((data) => (
