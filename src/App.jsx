@@ -1,11 +1,8 @@
 import Button from '@mui/material/Button';
-import Popover from '@mui/material/Popover';
 import { useState, useEffect, useRef } from 'react';
 import { tabsData } from './mockData/tabsData';
 import CustomTabPanel from './components/CustomTabPanel';
 import sprite from './assets/sprite.svg';
-import { SvgIcon } from '@mui/material';
-import { Reorder } from 'framer-motion';
 import TabList from './components/TabList';
 import PopoverPinnedTabs from './components/PopoverPinnedTabs';
 import PopoverHiddenTabs from './components/PopoverHiddenTabs';
