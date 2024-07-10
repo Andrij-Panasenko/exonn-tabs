@@ -6,6 +6,7 @@ import CustomTabPanel from './components/CustomTabPanel';
 import sprite from './assets/sprite.svg';
 import { SvgIcon } from '@mui/material';
 import { Reorder } from 'framer-motion';
+import TabList from './components/TabList';
 
 const TABS_STORAGE_KEY = 'tabs';
 const PINNED_TABS_KEY = 'pinned_tabs';
@@ -159,40 +160,14 @@ export default function App() {
             </CustomTabPanel>
           ))}
         </Popover>
-        <Reorder.Group
-          id="tabs"
-          axis="x"
-          values={tabsList}
-          onChange={handleChange}
-          onReorder={handleReorder}
-          className="tab-list"
-          ref={tabsContainerRef}
-        >
-          {tabsList.map((item) => (
-            <Reorder.Item
-              onClick={() => setTabIndex(item.id)}
-              data-tab-id={item.id}
-              whileDrag={{
-                backgroundColor: '#7F858D',
-                color: '#ffffff',
-
-                boxShadow: 'rgba(0,0,0,0.12) 0px 1px 3px ',
-              }}
-              value={item}
-              className="tab-item"
-              key={item.id}
-              id={item.id}
-            >
-              <p>{item.label}</p>
-              <span className="tooltip" onClick={() => pinnTabHandler(item)}>
-                <svg width="16" height="16">
-                  <use xlinkHref={sprite + '#pinn'}></use>
-                </svg>
-                Pinn tab
-              </span>
-            </Reorder.Item>
-          ))}
-        </Reorder.Group>
+        <TabList
+          tabsList={tabsList}
+          handleChange={handleChange}
+          handleReorde={handleReorder}
+          tabsContainerRef={tabsContainerRef}
+          setTabIndex={setTabIndex}
+          pinnTabHandler={pinnTabHandler}
+        />
         <Button
           onClick={handleOpenMenu}
           sx={{ position: 'absolute', top: '90px', right: '0', zIndex: '1' }}
