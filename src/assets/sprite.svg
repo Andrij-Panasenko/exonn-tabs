@@ -62,5 +62,8 @@
 <symbol id="vector" viewBox="0 0 48 32">
 <path d="M24 2.4l-24 24 5.6 5.6 18.4-18.4 18.4 18.4 5.6-5.6-24-24z"></path>
 </symbol>
+<symbol id="arrow-down" viewBox="0 0 32 32">
+<path d="M17 23.1l-9-9 2.1-2.1 6.9 6.9 6.9-6.9 2.1 2.1-9 9z"></path>
+</symbol>
 </defs>
 </svg>

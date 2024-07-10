@@ -9,6 +9,7 @@
 }
 
 .tab-item {
+  transform: rotateX('angle');
   padding: 0px 20px;
   height: 100%;
   display: flex;

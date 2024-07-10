@@ -111,7 +111,7 @@ export default function App() {
       <div className="container">
         <Button
           onClick={handleOpenPinnedTabs}
-          sx={{ position: 'absolute', top: '100px', left: '0', zIndex: '1' }}
+          sx={{ position: 'absolute', top: '75px', left: '0', zIndex: '1' }}
         >
           <svg width="16" height="16">
             <use xlinkHref={sprite + '#storage'}></use>
@@ -136,10 +136,10 @@ export default function App() {
         />
         <Button
           onClick={handleOpenMenu}
-          sx={{ position: 'absolute', top: '90px', right: '0', zIndex: '1' }}
+          sx={{rotate: 180, position: 'absolute', top: '75px', right: '0', zIndex: '1' }}
         >
-          <svg width="16" height="16">
-            <use xlinkHref={sprite + '#vector'}></use>
+          <svg width="20" height="20">
+            <use xlinkHref={sprite + '#arrow-down'}></use>
           </svg>
         </Button>
         <PopoverHiddenTabs
