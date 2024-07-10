@@ -6,9 +6,7 @@ import sprite from './assets/sprite.svg';
 import TabList from './components/TabList';
 import PopoverPinnedTabs from './components/PopoverPinnedTabs';
 import PopoverHiddenTabs from './components/PopoverHiddenTabs';
-
-const TABS_STORAGE_KEY = 'tabs';
-const PINNED_TABS_KEY = 'pinned_tabs';
+import { PINNED_TABS_KEY, TABS_STORAGE_KEY } from './helpers/storaheKeys';
 
 const getStoragedTabs = () => {
   const savedTabs = localStorage.getItem(TABS_STORAGE_KEY);
