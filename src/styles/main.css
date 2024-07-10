@@ -1,5 +1,6 @@
 @import 'modern-normalize';
 @import './tabList.modue.css';
+@import './popoverPinnedTabs.module.css';
 
 
 h1,
@@ -38,25 +39,3 @@ button {
   padding: 62px;
 }
 
-.tab-style {
-  background-color: #000000;
-}
-
-.hidden-tabs {
-  display: flex;
-  justify-content: space-between;
-}
-
-.pinned-tab-wrapp {
-  display: flex;
-  gap: 10px;
-}
-
-.delete-pinn {
-  color: #ffffff;
-  cursor: pointer;
-  text-align: center;
-  background-color: gray;
-  width: 20px;height: 20px;
-  border-radius: 50%;
-}
