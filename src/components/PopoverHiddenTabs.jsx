@@ -1,6 +1,7 @@
 import React from 'react';
 import Popover from '@mui/material/Popover';
 import CustomTabPanel from './CustomTabPanel';
+import { tabsData } from '../mockData/tabsData';
 
 export default function PopoverHiddenTabs({
   openUnvisiblePinns,
@@ -36,6 +37,11 @@ export default function PopoverHiddenTabs({
           </CustomTabPanel>
         ))}
       </Popover>
+      {tabsData.map((data) => (
+        <CustomTabPanel key={data.id} value={tabIndex} index={data.id}>
+          {data.label}
+        </CustomTabPanel>
+      ))}
     </>
   );
 }

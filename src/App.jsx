@@ -1,7 +1,6 @@
 import Button from '@mui/material/Button';
 import { useState, useEffect, useRef } from 'react';
 import { tabsData } from './mockData/tabsData';
-import CustomTabPanel from './components/CustomTabPanel';
 import sprite from './assets/sprite.svg';
 import TabList from './components/TabList';
 import PopoverPinnedTabs from './components/PopoverPinnedTabs';
@@ -153,11 +152,6 @@ export default function App() {
           setTabIndex={setTabIndex}
           tabIndex={tabIndex}
         />
-        {tabsData.map((data) => (
-          <CustomTabPanel key={data.id} value={tabIndex} index={data.id}>
-            {data.label}
-          </CustomTabPanel>
-        ))}
       </div>
     </>
   );
