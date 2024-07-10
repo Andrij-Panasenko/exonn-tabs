@@ -12,7 +12,11 @@ export default function CustomTabPanel(props) {
       data-custom="CustomTabPanel"
       {...other}
     >
-      {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
+      {value === index && (
+        <Box className="tab-content-container">
+          <div className='tab-content'>{children}</div>
+        </Box>
+      )}
     </div>
   );
 }

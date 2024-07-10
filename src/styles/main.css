@@ -1,7 +1,7 @@
 @import 'modern-normalize';
 @import './tabList.modue.css';
 @import './popoverPinnedTabs.module.css';
-
+@import './customTabPanel.module.css';
 
 h1,
 h2,

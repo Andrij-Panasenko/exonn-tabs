@@ -1,0 +1,11 @@
+.tab-content-container {
+  padding: 20px;
+  background-color: #F1F5F8;
+}
+
+.tab-content {
+  padding: 20px;
+  border-radius: 6px;
+  height: 100vh;
+  background-color: #FFFFFF;
+}
