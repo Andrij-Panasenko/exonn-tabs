@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import { Reorder } from 'framer-motion';
 import sprite from '../assets/sprite.svg';
 
@@ -10,8 +10,15 @@ export default function TabList({
   pinnTabHandler,
   setTabsList,
 }) {
+  const [activeTabid, setActiveTabId] = useState(null);
+
   const handleReorder = (newTablist) => {
     setTabsList(newTablist);
+  };
+
+  const handleTabClick = (id) => {
+    setTabIndex(id);
+    setActiveTabId(id);
   };
 
   return (
@@ -27,7 +34,7 @@ export default function TabList({
       >
         {tabsList.map((item) => (
           <Reorder.Item
-            onClick={() => setTabIndex(item.id)}
+            onClick={() => handleTabClick(item.id)}
             data-tab-id={item.id}
             whileDrag={{
               backgroundColor: '#7F858D',
@@ -36,7 +43,9 @@ export default function TabList({
               boxShadow: 'rgba(0,0,0,0.12) 0px 1px 3px ',
             }}
             value={item}
-            className="tab-item"
+            className={`tab-item ${
+              item.id === activeTabid ? 'active-tab-item' : ''
+            }`}
             key={item.id}
             id={item.id}
           >
