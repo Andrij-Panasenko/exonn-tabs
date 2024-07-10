@@ -7,6 +7,7 @@ import sprite from './assets/sprite.svg';
 import { SvgIcon } from '@mui/material';
 import { Reorder } from 'framer-motion';
 import TabList from './components/TabList';
+import PopoverPinnedTabs from './components/PopoverPinnedTabs';
 
 const TABS_STORAGE_KEY = 'tabs';
 const PINNED_TABS_KEY = 'pinned_tabs';
@@ -127,7 +128,16 @@ export default function App() {
             <use xlinkHref={sprite + '#storage'}></use>
           </svg>
         </Button>
-        <Popover
+        <PopoverPinnedTabs
+          openPinnedTabs={openPinnedTabs}
+          pinnedAncorEL={pinnedAncorEL}
+          handleClosePinnedTabs={handleClosePinnedTabs}
+          pinnedTabs={pinnedTabs}
+          setTabIndex={setTabIndex}
+          tabIndex={tabIndex}
+          deletePinnedTabHandler={deletePinnedTabHandler}
+        />
+        {/* <Popover
           open={openPinnedTabs}
           anchorEl={pinnedAncorEL}
           onClose={handleClosePinnedTabs}
@@ -159,7 +169,7 @@ export default function App() {
               </div>
             </CustomTabPanel>
           ))}
-        </Popover>
+        </Popover> */}
         <TabList
           tabsList={tabsList}
           handleChange={handleChange}
