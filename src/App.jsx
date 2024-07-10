@@ -8,6 +8,7 @@ import { SvgIcon } from '@mui/material';
 import { Reorder } from 'framer-motion';
 import TabList from './components/TabList';
 import PopoverPinnedTabs from './components/PopoverPinnedTabs';
+import PopoverHiddenTabs from './components/PopoverHiddenTabs';
 
 const TABS_STORAGE_KEY = 'tabs';
 const PINNED_TABS_KEY = 'pinned_tabs';
@@ -137,39 +138,6 @@ export default function App() {
           tabIndex={tabIndex}
           deletePinnedTabHandler={deletePinnedTabHandler}
         />
-        {/* <Popover
-          open={openPinnedTabs}
-          anchorEl={pinnedAncorEL}
-          onClose={handleClosePinnedTabs}
-          anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'right',
-          }}
-          transformOrigin={{
-            vertical: 'top',
-            horizontal: 'right',
-          }}
-        >
-          {pinnedTabs.length === 0 && <CustomTabPanel>No pinns</CustomTabPanel>}
-          {pinnedTabs.map((item) => (
-            <CustomTabPanel
-              onClick={() => setTabIndex(item.id)}
-              key={item.id}
-              value={tabIndex}
-              index={tabIndex}
-            >
-              <div className="pinned-tab-wrapp">
-                <p>{item.label}</p>
-                <p
-                  className="delete-pinn"
-                  onClick={() => deletePinnedTabHandler(item)}
-                >
-                  X
-                </p>
-              </div>
-            </CustomTabPanel>
-          ))}
-        </Popover> */}
         <TabList
           tabsList={tabsList}
           handleChange={handleChange}
@@ -186,7 +154,15 @@ export default function App() {
             <use xlinkHref={sprite + '#vector'}></use>
           </svg>
         </Button>
-        <Popover
+        <PopoverHiddenTabs
+          openUnvisiblePinns={openUnvisiblePinns}
+          anchorEl={anchorEl}
+          handleCloseMenu={handleCloseMenu}
+          hiddenTabs={hiddenTabs}
+          setTabIndex={setTabIndex}
+          tabIndex={tabIndex}
+        />
+        {/* <Popover
           open={openUnvisiblePinns}
           anchorEl={anchorEl}
           onClose={handleCloseMenu}
@@ -209,7 +185,7 @@ export default function App() {
               {tab.label}
             </CustomTabPanel>
           ))}
-        </Popover>
+        </Popover> */}
         {tabsData.map((data) => (
           <CustomTabPanel key={data.id} value={tabIndex} index={data.id}>
             {data.label}
