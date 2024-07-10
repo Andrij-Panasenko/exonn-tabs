@@ -61,7 +61,7 @@ export default function App() {
     const hiddenTabsArray = [];
 
     tabs.forEach((tab) => {
-      console.log(" tab.oddset:", tab.offsetLeft)
+      console.log(' tab.oddset:', tab.offsetLeft);
       console.log('tab.offsetWidth', tab.offsetWidth);
       const tabId = tab.getAttribute('data-tab-id'); // Getting tab id
       const tabObject = tabsList.find((t) => t.id === tabId); //Find specific tab in tabList array
@@ -72,10 +72,6 @@ export default function App() {
 
     setHiddenTabs(hiddenTabsArray);
   }, [tabsContainerWidth, tabsList]);
-
-  const handleReorder = (newTablist) => {
-    setTabsList(newTablist);
-  };
 
   const handleChange = (event, newValue) => {
     setTabIndex(newValue);
@@ -141,10 +137,10 @@ export default function App() {
         <TabList
           tabsList={tabsList}
           handleChange={handleChange}
-          handleReorde={handleReorder}
           tabsContainerRef={tabsContainerRef}
           setTabIndex={setTabIndex}
           pinnTabHandler={pinnTabHandler}
+          setTabsList={setTabsList}
         />
         <Button
           onClick={handleOpenMenu}
@@ -162,30 +158,6 @@ export default function App() {
           setTabIndex={setTabIndex}
           tabIndex={tabIndex}
         />
-        {/* <Popover
-          open={openUnvisiblePinns}
-          anchorEl={anchorEl}
-          onClose={handleCloseMenu}
-          anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'right',
-          }}
-          transformOrigin={{
-            vertical: 'top',
-            horizontal: 'right',
-          }}
-        >
-          {hiddenTabs.map((tab) => (
-            <CustomTabPanel
-              onClick={() => setTabIndex(tab.id)}
-              key={tab.id}
-              value={tabIndex}
-              index={tabIndex}
-            >
-              {tab.label}
-            </CustomTabPanel>
-          ))}
-        </Popover> */}
         {tabsData.map((data) => (
           <CustomTabPanel key={data.id} value={tabIndex} index={data.id}>
             {data.label}

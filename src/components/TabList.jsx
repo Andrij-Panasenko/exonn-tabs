@@ -1,15 +1,19 @@
 import React from 'react';
 import { Reorder } from 'framer-motion';
-import sprite from '../assets/sprite.svg'
+import sprite from '../assets/sprite.svg';
 
 export default function TabList({
   tabsList,
   handleChange,
-  handleReorder,
   tabsContainerRef,
   setTabIndex,
   pinnTabHandler,
+  setTabsList,
 }) {
+  const handleReorder = (newTablist) => {
+    setTabsList(newTablist);
+  };
+
   return (
     <>
       <Reorder.Group
